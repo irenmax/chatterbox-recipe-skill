@@ -6,7 +6,10 @@ class RecipeSkill(ChatterboxSkill):
     super().__init__()
     self.already_said_hello = False
     self.be_friendly = True
-  
+
+  def initialize(self):
+    my_setting = self.settings.get('my_setting')
+      
   @intent_handler('hear_this.intent')
   def handle_hello_intent(self, message):
     self.speak_dialog('say_this.dialog')
