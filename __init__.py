@@ -1,21 +1,15 @@
 from adapt.intent import IntentBuilder
-from chatterbox import ChatterboxSkill, intent_handler
+from chatterbox.skills.core import ChatterboxSkill
+from chatterbox.skills.core import intent_handler
 
-class RecipeSkill(ChatterboxSkill):
-  def __init__(self):
-    super().__init__()
-    self.already_said_hello = False
-    self.be_friendly = True
 
-  def initialize(self):
-    my_setting = self.settings.get('my_setting')
-      
-  @intent_handler('hear_this.intent')
-  def handle_hello_intent(self, message):
-    self.speak_dialog('say_this.dialog')
+class HelloWorldSkill(ChatterboxSkill):
 
-  def stop(self):
-    pass
+    @intent_handler(IntentBuilder("helloWorld").
+                    require('hello').require('world'))
+    def handle_intent_name2Intent(self, message):
+        self.speak('hello world')
 
-  def create_skill():
-    return RecipeSkill()
+
+def create_skill():
+    return HelloWorldSkill()
