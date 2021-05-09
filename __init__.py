@@ -16,7 +16,7 @@ class HelloWorldSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder("nextStep").require('nextStep'))
     def handle_next_step(self, message):
-      self.speak(self.recipe.getNextStep)
+      self.speak(self.recipe.getNextStep())
 
 def create_skill():
     return HelloWorldSkill()
