@@ -12,11 +12,11 @@ class HelloWorldSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder("getRecipe").require('getRecipe'))
     def handle_get_Recipe(self, message):
-        self.recipe = Recipe("recipe_1.txt")
+        HelloWorldSkill.recipe = Recipe("recipe_1.txt")
 
     @intent_handler(IntentBuilder("nextStep").require('nextStep'))
     def handle_next_step(self, message):
-      self.speak(self.recipe.getNextStep())
+      self.speak(HelloWorldSkill.recipe.getNextStep())
 
 def create_skill():
     return HelloWorldSkill()
