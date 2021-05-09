@@ -1,7 +1,7 @@
 from adapt.intent import IntentBuilder
 from chatterbox.skills.core import ChatterboxSkill
 from chatterbox.skills.core import intent_handler
-from chatterbox-recipe-skill.Recipe import Recipe
+from chatterbox_recipe_skill.recipe import Recipe
 
 class HelloWorldSkill(ChatterboxSkill):
     
