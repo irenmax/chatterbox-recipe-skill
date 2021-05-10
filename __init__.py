@@ -12,6 +12,7 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder("getRecipe").require('getRecipe'))
     def handle_getRecipe(self, message):
+       self.speak("ok, getting recipe")
        # self.recipe = Recipe("recipe_1.txt")
        with self.file_system.open("recipe_1.txt", "w") as recipe:
            content = recipe.read()
