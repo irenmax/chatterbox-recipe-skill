@@ -6,6 +6,9 @@ from recipe import Recipe
 
 
 class RecipeSkill(ChatterboxSkill):
+
+    def __init__(self):
+        super().__init__()
     
     @intent_handler(IntentBuilder("helloWorld").
                     require('hello'))
