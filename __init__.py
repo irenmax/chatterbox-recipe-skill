@@ -1,10 +1,11 @@
 from adapt.intent import IntentBuilder
 from chatterbox.skills.core import ChatterboxSkill
 from chatterbox.skills.core import intent_handler
+from recipe import Recipe
 
 
 
-class HelloWorldSkill(ChatterboxSkill):
+class RecipeSkill(ChatterboxSkill):
     
     @intent_handler(IntentBuilder("helloWorld").
                     require('hello'))
@@ -20,24 +21,4 @@ class HelloWorldSkill(ChatterboxSkill):
         self.speak(self.recipe.getNextStep())
 
 def create_skill():
-    return HelloWorldSkill()
-
-
-
-class Recipe:
-  stepCount = 0
-  def __init__(self, recipeName):
-    recipe = open(recipeName, "r")
-    content = recipe.read()
-    content = content.replace("\n", "")
-    Recipe.stepList = filter(None, content.split("- [ ] "))
-    recipe.close()
-  
-  def getLine(self, index):
-    return Recipe.stepList[index]
-
-  def getNextStep(self):
-    step = Recipe.stepList[Recipe.stepCount]
-    Recipe.stepCount = Recipe.stepCount + 1
-    return step
-
+    return RecipeSkill()
