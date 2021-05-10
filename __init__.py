@@ -4,6 +4,11 @@ from chatterbox.skills.core import intent_handler
 
 
 class RecipeSkill(ChatterboxSkill):
+
+    def __init__(self):
+        super().__init__()
+        self.stepCount = 0
+        self.stepList = []
     
     @intent_handler(IntentBuilder("helloWorld").
                     require('hello'))
@@ -15,6 +20,8 @@ class RecipeSkill(ChatterboxSkill):
        self.speak("ok, getting recipe")
        # self.recipe = Recipe("recipe_1.txt")
        self.stepList = self.read_recipe("recipe_1.txt")
+       self.speak("got recipe")
+       self.speak(len(self.stepList))
 
 
     @intent_handler(IntentBuilder("nextStep").require('nextStep'))
