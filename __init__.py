@@ -1,6 +1,7 @@
 from adapt.intent import IntentBuilder
 from chatterbox.skills.core import ChatterboxSkill
 from chatterbox.skills.core import intent_handler
+import urllib
 
 
 class RecipeSkill(ChatterboxSkill):
@@ -20,9 +21,9 @@ class RecipeSkill(ChatterboxSkill):
        self.speak("ok, getting recipe")
        # self.recipe = Recipe("recipe_1.txt")
        sl = self.read_recipe("recipe_1.txt")
-       self.speak(sl[1])
        self.stepList = sl
        self.speak("got recipe")
+       self.speak(sl[1])
        self.speak(len(self.stepList))
 
 
@@ -34,10 +35,10 @@ class RecipeSkill(ChatterboxSkill):
 
 
     def read_recipe(self, file_name):
-        with self.file_system.open(file_name, "r") as recipe:
-            content = recipe.read()
-            content = content.replace("\n", "")
-            return filter(None, content.split("- [ ] "))
+        recipe = urllib.urlopen("http://b55ecb909419.ngrok.io/recipe_1.txt")
+        content = recipe.read()
+        content = content.replace("\n", "")
+        return filter(None, content.split("- [ ] "))
 
 def create_skill():
     return RecipeSkill()
