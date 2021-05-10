@@ -19,7 +19,9 @@ class RecipeSkill(ChatterboxSkill):
     def handle_getRecipe(self, message):
        self.speak("ok, getting recipe")
        # self.recipe = Recipe("recipe_1.txt")
-       self.stepList = self.read_recipe("recipe_1.txt")
+       sl = self.read_recipe("recipe_1.txt")
+       self.speak(sl[1])
+       self.stepList = sl
        self.speak("got recipe")
        self.speak(len(self.stepList))
 
