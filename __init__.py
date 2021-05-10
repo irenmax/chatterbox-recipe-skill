@@ -6,6 +6,13 @@ import urllib
 
 class RecipeSkill(ChatterboxSkill):
 
+
+    def read_recipe(self, file_name):
+        recipe = urllib.urlopen("http://b55ecb909419.ngrok.io/recipe_1.txt")
+        content = recipe.read()
+        content = content.replace("\n", "")
+        return filter(None, content.split("- [ ] "))
+
     def __init__(self):
         super().__init__()
         self.stepCount = 0
@@ -34,11 +41,6 @@ class RecipeSkill(ChatterboxSkill):
         self.speak(step)
 
 
-    def read_recipe(self, file_name):
-        recipe = urllib.urlopen("http://b55ecb909419.ngrok.io/recipe_1.txt")
-        content = recipe.read()
-        content = content.replace("\n", "")
-        return filter(None, content.split("- [ ] "))
 
 def create_skill():
     return RecipeSkill()
