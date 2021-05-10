@@ -30,7 +30,6 @@ class RecipeSkill(ChatterboxSkill):
        sl = self.read_recipe("recipe_1.txt")
        self.stepList = sl
        self.speak("got recipe")
-       self.speak(sl[1])
        self.speak(len(self.stepList))
 
 
