@@ -6,10 +6,10 @@ import requests
 
 def loadRecipe(stepCounter, stepList, recipeName):
     stepCounter = 0
-    stepList = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
-    #content = response.content
-    #content = content.replace("\n", "")
-    #stepList = filter(None, content.split("- [ ] "))
+    response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+    content = response.content
+    content = content.replace("\n", "")
+    stepList = filter(None, content.split("- [ ] "))
     return stepCounter, stepList
   
 def getNextStep(stepCounter, stepList):
@@ -35,7 +35,9 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
+        self.speak('Okay')
         self.stepCounter, self.stepList = loadRecipe(self.stepCounter, self.stepList, 'recipe1')
+        self.speak('Done')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
