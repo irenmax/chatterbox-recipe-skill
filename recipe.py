@@ -1,18 +1,23 @@
+import requests
+
 class Recipe:
-  stepCount = 0
-  def __init__(self, recipeName):
-    recipe = open(recipeName, "r")
-    content = recipe.read()
+  def __init__(self):
+    self.stepList = []
+    self.stepCount = 0
+    response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+    content = response.content
     content = content.replace("\n", "")
-    Recipe.stepList = filter(None, content.split("- [ ] "))
-    recipe.close()
+    self.stepList = filter(None, content.split("- [ ] "))
   
   def getLine(self, index):
-    return Recipe.stepList[index]
+    return self.stepList[index]
 
   def getNextStep(self):
-    step = Recipe.stepList[Recipe.stepCount]
-    Recipe.stepCount = Recipe.stepCount + 1
-    return step
+    if self.stepCount < len(self.stepList):
+      step = self.stepList[self.stepCount]
+      self.stepCount = self.stepCount + 1
+      return step
+    else:
+      return 'No more steps'
 
 
