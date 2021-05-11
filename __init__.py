@@ -8,6 +8,10 @@ class RecipeSkill(ChatterboxSkill):
         super().__init__()
         self.stepCount = 0
         self.stepList = []
+        response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+        self.speak(response.status_code)
+        self.speak(response.content)
+        self.stepList =["One", "Two", "Three"]
     
     @intent_handler(IntentBuilder('helloWorld').require('hello'))
     def handle_intent_helloWorld(self, message):
@@ -15,10 +19,11 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
-       response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
-       self.speak(response.status_code)
-       self.speak(response.content)
-       self.stepList =["One", "Two", "Three"]
+        #response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+        #self.speak(response.status_code)
+        #self.speak(response.content)
+        #self.stepList =["One", "Two", "Three"]
+        self.speak("OK")
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
