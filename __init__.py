@@ -7,15 +7,6 @@ import urllib3
 class RecipeSkill(ChatterboxSkill):
 
 
-    def read_recipe(self, file_name):
-        http = urllib3.PoolManager()
-        response = http.request('GET', 'http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
-        status = response.status
-        content = response.data
-        content = content.replace("\n", "")
-        self.speak(status)
-        return filter(None, content.split("- [ ] "))
-
     def __init__(self):
         super().__init__()
         self.stepCount = 0
@@ -28,12 +19,12 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder("getRecipe").require('getRecipe'))
     def handle_getRecipe(self, message):
-       self.speak("ok, getting recipe")
-       # self.recipe = Recipe("recipe_1.txt")
-       sl = self.read_recipe("recipe_1.txt")
-       self.stepList = sl
-       self.speak("got recipe")
-       self.speak(len(self.stepList))
+       http = urllib3.PoolManager()
+       response = http.request('GET', 'http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+       status = response.status
+       content = response.data
+       self.speak(status)
+       self.speak(content)
 
 
     @intent_handler(IntentBuilder("nextStep").require('nextStep'))
