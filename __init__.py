@@ -6,7 +6,6 @@ from recipe import Recipe
 class RecipeSkill(ChatterboxSkill):
     def __init__(self):
         super().__init__()
-        self.recipe = Recipe()
 
     
     @intent_handler(IntentBuilder('helloWorld').require('hello'))
@@ -15,13 +14,13 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
-        self.recipe = Recipe()
+        self.recipe1 = Recipe()
         self.speak('Okay')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
         self.speak('Okay')
-        step = self.recipe.getNextStep()
+        step = self.recipe1.getNextStep()
         self.speak(step)
 
 def create_skill():
