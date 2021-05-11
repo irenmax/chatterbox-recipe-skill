@@ -6,10 +6,10 @@ import requests
 
 def loadRecipe(stepCounter, stepList, recipeName):
     stepCounter = 0
-    response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
-    content = response.content
-    content = content.replace("\n", "")
-    stepList = filter(None, content.split("- [ ] "))
+    stepList = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
+    #content = response.content
+    #content = content.replace("\n", "")
+    #stepList = filter(None, content.split("- [ ] "))
     return stepCounter, stepList
   
 def getNextStep(stepCounter, stepList):
