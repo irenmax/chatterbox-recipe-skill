@@ -8,7 +8,7 @@ class RecipeSkill(ChatterboxSkill):
 
 
     def read_recipe(self, file_name):
-        recipe = urllib.urlopen("http://b55ecb909419.ngrok.io/recipe_1.txt")
+        recipe = urllib.urlopen("http://1e2ba836c4e1.ngrok.io/recipe_1.txt")
         content = recipe.read()
         content = content.replace("\n", "")
         return filter(None, content.split("- [ ] "))
