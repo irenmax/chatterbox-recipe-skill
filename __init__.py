@@ -25,7 +25,7 @@ def getNextStep(stepCounter, stepList):
 class RecipeSkill(ChatterboxSkill):
     def __init__(self):
         super().__init__()
-        self.stepCounter = 0
+        self.stepCount = 0
         self.stepList = []
 
     
@@ -36,13 +36,13 @@ class RecipeSkill(ChatterboxSkill):
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
         self.speak('Okay')
-        self.stepCounter, self.stepList = loadRecipe(self.stepCounter, self.stepList, 'recipe1')
+        self.stepCount, self.stepList = loadRecipe(self.stepCount, self.stepList, 'recipe1')
         self.speak('Done')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
         self.speak('Okay')
-        step = getNextStep(self.stepCounter, self.stepList)
+        step = getNextStep(self.stepCount, self.stepList)
         self.speak(step)
 
 def create_skill():
