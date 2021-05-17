@@ -20,12 +20,37 @@ def getNextStep(stepCounter, stepList):
         return 'No more steps'
 
 
+class Recipe:
+    def __init__(self):
+        self.stepList = []
+        self.stepCount = 0
+        
+    def loadRecipe(self, recipeName):
+        self.stepList = []
+        self.stepCount = 0
+        response = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.txt").text)
+        content = response.replace("\n", "")
+        self.stepList = list(filter(None, content.split("- [ ] ")))
+    
+    def getNextStep(self):
+        if self.stepCount < len(self.stepList):
+            step = self.stepList[self.stepCount]
+            self.stepCount = self.stepCount + 1
+            return step
+        else:
+            return 'No more steps'
+
+        
+
+
+
 
 class RecipeSkill(ChatterboxSkill):
     def __init__(self):
         super().__init__()
-        self.stepCount = 0
-        self.stepList = []
+        #self.stepCount = 0
+        #self.stepList = []
+        self.recipe = Recipe()
 
     
     @intent_handler(IntentBuilder('helloWorld').require('hello'))
@@ -35,14 +60,19 @@ class RecipeSkill(ChatterboxSkill):
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
         self.speak('Okay')
-        self.stepCount, self.stepList = loadRecipe(self.stepCount, self.stepList, 'recipe1')
-        self.speak('Done')
+        self.recipe.loadRecipe('recipe1')
+        self.speak('I have found the recipe')
+ #       self.speak('Okay')
+ #       self.stepCount, self.stepList = loadRecipe(self.stepCount, self.stepList, 'recipe1')
+ #       self.speak('Done')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
-        self.speak('Okay')
-        step = getNextStep(self.stepCount, self.stepList)
-        self.speak(step)
+        self.speak(self.recipe.getNextStep())
+  #      self.speak('Okay')
+  #      step = getNextStep(self.stepCount, self.stepList)
+  #      self.speak(step)
+
 
 def create_skill():
     return RecipeSkill()
