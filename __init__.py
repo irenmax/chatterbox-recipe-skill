@@ -4,11 +4,10 @@ from chatterbox.skills.core import intent_handler
 import requests
 
 
-def loadRecipe(stepCounter, stepList, recipeName):
+def loadRecipe(stepCounter: int, stepList: dict, recipeName: str) -> int, dict:
     stepCounter = 0
-    response = requests.get('http://1e2ba836c4e1.ngrok.io/recipe_1.txt')
-    content = response.content
-    content = content.replace("\n", "")
+    file = str(requests.get('http://3d6feb466bd8.ngrok.io/recipe_1.txt').text, wait=True)
+    content = file.replace("\n", "")
     stepList = filter(None, content.split("- [ ] "))
     return stepCounter, stepList
   
