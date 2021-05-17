@@ -6,7 +6,7 @@ import requests
 
 def loadRecipe(stepCounter, stepList, recipeName):
     stepCounter = 0
-    file = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.txt").text), wait=True)
+    file = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.txt").text)
     content = file.replace("\n", "")
     stepList = filter(None, content.split("- [ ] "))
     return stepCounter, stepList
