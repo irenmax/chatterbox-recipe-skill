@@ -4,22 +4,6 @@ from chatterbox.skills.core import intent_handler
 import requests
 
 
-def loadRecipe(stepCounter, stepList, recipeName):
-    stepCounter = 0
-    file = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.txt").text)
-    content = file.replace("\n", "")
-    stepList = list(filter(None, content.split("- [ ] ")))
-    return stepCounter, stepList
-  
-def getNextStep(stepCounter, stepList):
-    if stepCounter < len(stepList):
-        step = stepList[stepCounter]
-        stepCounter = stepCounter + 1
-        return step
-    else:
-        return 'No more steps'
-
-
 class Recipe:
     def __init__(self):
         self.stepList = []
@@ -28,7 +12,7 @@ class Recipe:
     def loadRecipe(self, recipeName):
         self.stepList = []
         self.stepCount = 0
-        response = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.txt").text)
+        response = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.md").text)
         content = response.replace("\n", "")
         self.stepList = list(filter(None, content.split("- [ ] ")))
     
@@ -43,13 +27,9 @@ class Recipe:
         
 
 
-
-
 class RecipeSkill(ChatterboxSkill):
     def __init__(self):
         super().__init__()
-        #self.stepCount = 0
-        #self.stepList = []
         self.recipe = Recipe()
 
     
@@ -62,17 +42,10 @@ class RecipeSkill(ChatterboxSkill):
         self.speak('Okay')
         self.recipe.loadRecipe('recipe1')
         self.speak('I have found the recipe')
- #       self.speak('Okay')
- #       self.stepCount, self.stepList = loadRecipe(self.stepCount, self.stepList, 'recipe1')
- #       self.speak('Done')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
         self.speak(self.recipe.getNextStep())
-  #      self.speak('Okay')
-  #      step = getNextStep(self.stepCount, self.stepList)
-  #      self.speak(step)
-
 
 def create_skill():
     return RecipeSkill()
