@@ -55,8 +55,7 @@ class RecipeSkill(ChatterboxSkill):
                 self.speak('I could not find a recipe for ' + recipeName)
         else:
             self.speak('I could not understand what recipe you want.')
-      #  self.recipe.loadRecipe('recipe1')
-      #  self.speak('I have found the recipe')
+            
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):

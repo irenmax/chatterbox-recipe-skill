@@ -1,3 +1,6 @@
+get recipe
+find recipe
+load recipe
 get recipe for {name}
 load recipe for {name}
 find recipe for {name}
