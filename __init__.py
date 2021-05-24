@@ -49,7 +49,7 @@ class RecipeSkill(ChatterboxSkill):
         message_data = message.data
 
         recipeName = message.data.get("entities", {}).get(
-            to_alnum(self.skill_id) + "recipe"
+           "recipe"
         )
         self.speak(str(recipeName), wait=True)
       #  self.speak('Okay')
