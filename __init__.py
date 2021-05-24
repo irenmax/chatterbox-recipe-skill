@@ -12,7 +12,7 @@ class Recipe:
     def loadRecipe(self, recipeName):
         self.stepList = []
         self.stepCount = 0
-        response = str(requests.get("http://3d6feb466bd8.ngrok.io/recipe_1.md").text)
+        response = str(requests.get("http://192.168.0.80:8989/recipe_1.md").text)
         content = response.replace("\n", "")
         self.stepList = list(filter(None, content.split("- [ ] ")))
     
