@@ -58,8 +58,8 @@ class Recipe:
       ingredientString = ""
       if len(self.ingredients) > 0:
         for i in self.ingredients:
-          ingredientString = ingredientString + i.get("name") + "," + str(i.get("amount")) + "\n"
-        return ingredientString.strip()
+          ingredientString = ingredientString + i.get("name") + "," + str(i.get("amount")) + "."
+        return ingredientString
       else:
         return "This recipe has no ingredients"
 
@@ -67,7 +67,7 @@ class Recipe:
       if len(self.ingredients) > 0:
         for i in self.ingredients:
           if ingredientName.lower() in i.get('name').lower():
-            return i.get("amount") + " " +  i.get('name')
+            return str(i.get("amount")) + " " +  i.get('name')
         
         return "Could not find ingredient"
       else:
@@ -89,7 +89,7 @@ class RecipeSkill(ChatterboxSkill):
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
         if recipeName is not None:
-            self.speak('Okay, i am searching the reicipe for ' + recipeName)
+            self.speak('Okay, i am searching the recipe for ' + recipeName)
             foundRecipe = self.recipe.loadRecipe(recipeName)
             if foundRecipe:
                 self.speak('I have found a recipe for ' + recipeName)

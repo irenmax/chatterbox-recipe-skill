@@ -2,27 +2,27 @@
   "ingredients": [
     {
         "name": "seitan",
-        "amount": 200,
+        "amount": "200",
         "unit": "g"
     },
     {
         "name": "breadcrumbs",
-        "amount": 100,
+        "amount": "100",
         "unit": "g"
     },
     {
         "name": "flour",
-        "amount": 200,
+        "amount": "200",
         "unit": "g"
     },
     {
         "name": "soymilk",
-        "amount": 200,
+        "amount": "200",
         "unit": "ml"
     },
     {
         "name": "oil",
-        "amount": 250,
+        "amount": "250",
         "unit": "ml"
     }
 ],
