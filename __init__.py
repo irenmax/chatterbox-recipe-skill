@@ -21,7 +21,7 @@ class Recipe:
         recipeName = recipeName.lower().replace(" ", "_")
     
 
-        response = requests.get("http://localhost:8989/" + recipeName + ".json")
+        response = requests.get("http://192.168.0.80:8989/" + recipeName + ".json")
         if response.status_code == 200:
             # extract ingredients
             ingredients = response.json().get("ingredients")
