@@ -1,0 +1,40 @@
+{
+  "ingredients": [
+    {
+        "name": "tofu",
+        "amount": 200,
+        "unit": "g"
+    },
+    {
+        "name": "carrots",
+        "amount": 2,
+        "unit": "p"
+    },
+    {
+        "name": "spring onions",
+        "amount": 2,
+        "unit": "p"
+    },
+    {
+        "name": "chilisauce",
+        "amount": 3,
+        "unit": "tbsp"
+    },
+    {
+        "name": "vinegar",
+        "amount": 1,
+        "unit": "tbsp"
+    },
+    {
+        "name": "maple syrup",
+        "amount": 1,
+        "unit": "tsp"
+    }
+],
+"method":[
+  "Cut the carrots in fine strips and put them into a bowl with salt.",
+  "Cut the tofu in fine strips and the spring onions into fine rolls. Put both to the carrots.",
+  "Add the chilisauce, vinegar and maple syrup",
+  "Spread hummus on a breat, put the tofu snack on top and garnish it with cress or lettuce."
+]
+}

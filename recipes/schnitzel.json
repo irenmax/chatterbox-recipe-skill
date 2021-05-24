@@ -1,0 +1,36 @@
+{
+  "ingredients": [
+    {
+        "name": "seitan",
+        "amount": 200,
+        "unit": "g"
+    },
+    {
+        "name": "breadcrumbs",
+        "amount": 100,
+        "unit": "g"
+    },
+    {
+        "name": "flour",
+        "amount": 200,
+        "unit": "g"
+    },
+    {
+        "name": "soymilk",
+        "amount": 200,
+        "unit": "ml"
+    },
+    {
+        "name": "oil",
+        "amount": 250,
+        "unit": "ml"
+    }
+],
+"method":[
+  "Cut the seitan into pieces.",
+  "Mix the soymilk with some flour to get a smooth batter.",
+  "Heat the oil",
+  "Coat the seitan into flour first, then with the batter and afterwards with breadcrumbs.",
+  "Fry the schnitzel in the hot oil."
+]
+}
