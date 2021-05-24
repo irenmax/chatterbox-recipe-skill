@@ -32,6 +32,10 @@ class RecipeSkill(ChatterboxSkill):
         super().__init__()
         self.recipe = Recipe()
 
+    def initialize(self):
+        utterance = utterance_remainder = ''
+        message_data = {}
+
     
     @intent_handler(IntentBuilder('helloWorld').require('hello'))
     def handle_intent_helloWorld(self, message):
@@ -39,9 +43,18 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
     def handle_getRecipe(self, message):
-        self.speak('Okay')
-        self.recipe.loadRecipe('recipe1')
-        self.speak('I have found the recipe')
+        global message_data, utterance, utterance_remainder
+        utterance = message.data['utterance']
+        utterance_remainder = message.utterance_remainder() or ''
+        message_data = message.data
+
+        recipeName = message.data.get("entities", {}).get(
+            to_alnum(self.skill_id) + "recipe"
+        )
+        self.speak(str(recipeName), wait=True)
+      #  self.speak('Okay')
+      #  self.recipe.loadRecipe('recipe1')
+      #  self.speak('I have found the recipe')
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
