@@ -8,13 +8,20 @@ class Recipe:
     def __init__(self):
         self.stepList = []
         self.stepCount = 0
-        
+
+    # loads recipe via http
+    # returns True if recipe was found    
     def loadRecipe(self, recipeName):
         self.stepList = []
         self.stepCount = 0
-        response = str(requests.get("http://192.168.0.80:8989/recipe_1.md").text)
-        content = response.replace("\n", "")
-        self.stepList = list(filter(None, content.split("- [ ] ")))
+        response = requests.get("http://192.168.0.80:8989/" + recipeName + ".md")
+        if response.status_code is 200:
+            content = str(response.text)
+            content = content.replace("\n", "")
+            self.stepList = list(filter(None, content.split("- [ ] ")))
+            return True
+        else:
+            return False
     
     def getNextStep(self):
         if self.stepCount < len(self.stepList):
@@ -38,13 +45,16 @@ class RecipeSkill(ChatterboxSkill):
 
     @intent_handler('get.recipe.for.intent')
     def handle_getRecipe(self, message):
-        self.log.debug(message)
-        self.log.debug(message.data)
-        self.log.debug(message.data.get('entities', {}))
         recipeName = message.data.get('entities', {}).get('name')
-        
-        self.speak(str(recipeName), wait=True)
-      #  self.speak('Okay')
+        if recipeName is not None:
+            self.speak('Okay, i am searching the reicipe for ' + recipeName)
+            foundRecipe = self.recipe.loadRecipe(recipeName)
+            if foundRecipe:
+                self.speak('I have found a recipe for ' + recipeName)
+            else:
+                self.speak('I could not find a recipe for ' + recipeName)
+        else:
+            self.speak('I could not understand what recipe you want.')
       #  self.recipe.loadRecipe('recipe1')
       #  self.speak('I have found the recipe')
        
