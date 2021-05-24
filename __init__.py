@@ -39,7 +39,7 @@ class RecipeSkill(ChatterboxSkill):
     @intent_handler('get.recipe.for.intent')
     def handle_getRecipe(self, message):
         self.log.debug(message)
-        self.log.debu(message.data)
+        self.log.debug(message.data)
         recipeName = message.data.get('name')
         
         self.speak(str(recipeName), wait=True)
