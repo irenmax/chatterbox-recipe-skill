@@ -36,7 +36,7 @@ class RecipeSkill(ChatterboxSkill):
     def handle_intent_helloWorld(self, message):
         self.speak('hello world')
 
-    @intent_handler(IntentBuilder('getRecipe').require('getRecipe'))
+    @intent_handler('getRecipe')
     def handle_getRecipe(self, message):
         recipeName = message.data.get('recipeName')
         self.speak(str(recipeName), wait=True)
