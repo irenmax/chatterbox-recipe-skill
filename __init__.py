@@ -40,7 +40,8 @@ class RecipeSkill(ChatterboxSkill):
     def handle_getRecipe(self, message):
         self.log.debug(message)
         self.log.debug(message.data)
-        recipeName = message.data.get('name')
+        self.log.debug(message.data.get('entities', {}))
+        recipeName = message.data.get('entities', {}).get('name')
         
         self.speak(str(recipeName), wait=True)
       #  self.speak('Okay')
