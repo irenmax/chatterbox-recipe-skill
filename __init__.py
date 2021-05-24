@@ -35,7 +35,7 @@ class Recipe:
             return False        
     
     def getNextStep(self):
-        if len(self.stepList > 0):
+        if len(self.stepList) > 0:
             if self.stepCount < len(self.stepList):   
                 step = self.stepList[self.stepCount]
                 self.stepCount = self.stepCount + 1
@@ -58,7 +58,7 @@ class Recipe:
       ingredientString = ""
       if len(self.ingredients) > 0:
         for i in self.ingredients:
-          ingredientString = ingredientString + i.get("name") + "," + str(i.get("amount")) + "."
+          ingredientString = ingredientString + str(i.get("amount")) + " " + i.get("unit") + " " + str(i.get("name")) + ".\n"
         return ingredientString
       else:
         return "This recipe has no ingredients"
