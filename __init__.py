@@ -7,6 +7,7 @@ import requests
 
 class Recipe:
     def __init__(self):
+        self.loaded = False
         self.stepList = []
         self.ingredients = []
         self.stepCount = 0
@@ -33,55 +34,72 @@ class Recipe:
 
             # extract method
             self.stepList = response.json().get("method")
+            self.loaded = True
             return True
         else:
             return False        
     
     def getNextStep(self):
-        self.started = True
-        if len(self.stepList) > 0 and self.stepCount < len(self.stepList):
-            if self.stepCount < len(self.stepList):   
-                step = self.stepList[self.stepCount]
-                self.stepCount = self.stepCount + 1
-                return step
+        if self.loaded:
+            self.started = True
+            if len(self.stepList) > 0 and self.stepCount < len(self.stepList):
+                if self.stepCount < len(self.stepList):   
+                    step = self.stepList[self.stepCount]
+                    self.stepCount = self.stepCount + 1
+                    return step
+                else:
+                    return 'No more steps'
             else:
-                return 'No more steps'
+                return 'This recipe has no steps'
         else:
-            return 'This recipe has no steps'
+            return 'You havent told me yet, what you want to cook.'
         
     def repeatStep(self):
-        if len(self.stepList) > 0:
-            if self.stepCount < len(self.stepList):
-                return self.stepList[self.stepCount - 1]
+        if self.loaded:
+            if len(self.stepList) > 0:
+                if self.stepCount < len(self.stepList):
+                    return self.stepList[self.stepCount - 1]
+                else:
+                    return 'No more steps'
             else:
-                return 'No more steps'
+                return 'This recipe has no steps'
         else:
-            return 'This recipe has no steps'
+            return 'You havent told me yet, what you want to cook.'
 
     def getFirstStep(self, resetCounter):
-        self.started = True
-        if resetCounter:
-            self.stepCount = 0
-        return self.getNextStep()
+        if self.loaded:
+            self.started = True
+            if resetCounter:
+                self.stepCount = 0
+            return self.getNextStep()
+        else:
+            return 'You havent told me yet, what you want to cook.'
 
     def ingredientsToString(self):
-      ingredientString = ""
-      if len(self.ingredients) > 0:
-        for i in self.ingredients:
-          ingredientString = ingredientString + str(i.get("amount")) + " " + i.get("unit") + " " + str(i.get("name")) + ".\n"
-        return ingredientString
-      else:
-        return "This recipe has no ingredients"
+        if self.loaded:
+            if len(self.ingredients) > 0:
+                ingredientString = ""
+                for i in self.ingredients:
+                    ingredientString = ingredientString + str(i.get("amount")) + " " + i.get("unit") + " of " + str(i.get("name")) + ".\n"
+                return ingredientString
+            else:
+                return "This recipe has no ingredients"
+        else:
+            return 'You havent told me yet, what you want to cook.'
 
     def getAmount(self, ingredientName):
-      if len(self.ingredients) > 0:
-        for i in self.ingredients:
-          if ingredientName.lower() in i.get('name').lower():
-            return str(i.get("amount")) + " " +  i.get('name')
-        
-        return "Could not find ingredient"
-      else:
-        return "This recipe has no ingredients"
+        if self.loaded:
+            if len(self.ingredients) > 0:
+                for i in self.ingredients:
+                    if ingredientName.lower() in i.get('name').lower():
+                        return "You need "+ str(i.get("amount")) + " " + i.get("unit") + " of " +  i.get('name')
+                
+                return "You do not need " + ingredientName + " for this recipe."
+            else:
+                return "This recipe has no ingredients."
+        else:
+            return 'You havent told me yet, what you want to cook.'
+ 
 
         
 
@@ -98,17 +116,19 @@ class RecipeSkill(ChatterboxSkill):
     #### GET RECIPE ####    
 
     @intent_handler('get.recipe.for.intent')
+    @adds_context('StartWithRecipe')
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
         if recipeName is not None:
             self.log.debug(recipeName)
             if recipeName == 'it':
-                self.speak('blabla')
+                self.handle_startInstructions(message)
             else:
-                self.speak('Okay, i am searching the recipe for ' + recipeName)
+                self.speak('Okay, i am searching the recipe for ' + recipeName + '.')
                 foundRecipe = self.recipe.loadRecipe(recipeName)
                 if foundRecipe:
-                    self.speak('I have found a recipe for ' + recipeName)
+                    self.speak('I have found a recipe for ' + recipeName + '.')
+                    self.speak('Would you like me to read it?', expect_response=True)
                 else:
                     self.speak('I could not find a recipe for ' + recipeName)
         else:
@@ -116,10 +136,16 @@ class RecipeSkill(ChatterboxSkill):
             
     #### INSTRUCTIONS ####
 
-    @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
-    @adds_context('ListIntredients')
+    @intent_handler(IntentBuilder('startInstructions').require('yesKeyword').require('startInstructions').build())
+    @removes_context('StartWithRecipe')
+    @adds_context('ListIngredients')
     def handle_startInstructions(self, message):
         self.speak("Would you like to hear the ingredients?", expect_response=True)
+
+    @intent_handler(IntentBuilder('doNotStart').require('noKeyword').require('startInstructions').build())
+    @removes_context('StartWithRecipe')
+    def handle_doNotStart(self, message):
+        self.speak("Okay, just tell me if you want to start, hear the ingredients or steps.")
 
 
     @intent_handler(IntentBuilder('YesListIngredients').require('yesKeyword').require('ListIngredients').build())
@@ -151,6 +177,7 @@ class RecipeSkill(ChatterboxSkill):
         self.speak(self.recipe.getFirstStep(resetCounter=True))
 
     @intent_handler(IntentBuilder('NoFromBeginningIntent').require('noKeyword').require('StartFromBeginning').build())
+    @removes_context('StartFromBeginning')
     def handle_doNotStartFromBeginning(self, message):
         self.speak('Okay, here is the next step.')
         self.speak(self.recipe.getNextStep())       
