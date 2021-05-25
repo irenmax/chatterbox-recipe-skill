@@ -1,6 +1,7 @@
 from adapt.intent import IntentBuilder
 from chatterbox.skills.core import ChatterboxSkill
 from chatterbox.skills.core import intent_handler
+from chatterbox.skills.context import adds_context, removes_context
 import requests
 
 
@@ -85,6 +86,8 @@ class RecipeSkill(ChatterboxSkill):
     def handle_intent_helloWorld(self, message):
         self.speak('hello world')
 
+    #### GET RECIPE ####    
+
     @intent_handler('get.recipe.for.intent')
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
@@ -98,6 +101,17 @@ class RecipeSkill(ChatterboxSkill):
         else:
             self.speak('I could not understand what recipe you want.')
             
+    #### INSTRUCTIONS ####
+
+    @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
+    @adds_context('StartFromBeginningContext')
+    def handle_startInstructions(self, message):
+        self.speak("Do you want to start from the beginning?", expect_response=True)
+
+    @intent_handler(IntentBuilder('YesFromBeginningIntent').require('yesKeyword').require('StartFromBeginningContext').build())
+    @removes_context('StartFromBeginningContext')
+    def handle_start_from_beginning_intent(self, message):
+        self.speak('Okay, i start from the beginning.')        
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
@@ -106,6 +120,9 @@ class RecipeSkill(ChatterboxSkill):
     @intent_handler(IntentBuilder('repeatStep').require('repeatStep'))
     def handle_repeatStep(self, message):
         self.speak(self.recipe.repeatStep())
+
+
+    #### INGREDIENTS ####
 
     @intent_handler(IntentBuilder('getIngredients').require('getIngredients'))
     def handle_getIngredients(self, message):

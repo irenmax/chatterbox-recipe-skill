@@ -1,6 +1,16 @@
 get recipe
 find recipe
 load recipe
+how do i make
+do you have a recipe
+i want to make
+i want to cook
 get recipe for {name}
 load recipe for {name}
 find recipe for {name}
+how do i make {name}
+how do i cook {name}
+do you have a recipe for {name}
+i want to make {name}
+i want to cook {name}
+no {name}
