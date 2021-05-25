@@ -10,6 +10,7 @@ class Recipe:
         self.stepList = []
         self.ingredients = []
         self.stepCount = 0
+        self.started = False
 
     # loads recipe via http
     # returns True if recipe was found    
@@ -17,6 +18,7 @@ class Recipe:
         self.stepList = []
         self.ingredients = []
         self.stepCount = 0
+        self.started = True
 
         # replaces spaces in string
         recipeName = recipeName.lower().replace(" ", "_")
@@ -36,7 +38,8 @@ class Recipe:
             return False        
     
     def getNextStep(self):
-        if len(self.stepList) > 0:
+        self.started = True
+        if len(self.stepList) > 0 and self.stepCount < len(self.stepList):
             if self.stepCount < len(self.stepList):   
                 step = self.stepList[self.stepCount]
                 self.stepCount = self.stepCount + 1
@@ -49,11 +52,17 @@ class Recipe:
     def repeatStep(self):
         if len(self.stepList) > 0:
             if self.stepCount < len(self.stepList):
-                return self.stepList[self.stepCount]
+                return self.stepList[self.stepCount - 1]
             else:
                 return 'No more steps'
         else:
             return 'This recipe has no steps'
+
+    def getFirstStep(self, resetCounter):
+        self.started = True
+        if resetCounter:
+            self.stepCount = 0
+        return self.getNextStep()
 
     def ingredientsToString(self):
       ingredientString = ""
@@ -104,14 +113,43 @@ class RecipeSkill(ChatterboxSkill):
     #### INSTRUCTIONS ####
 
     @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
-    @adds_context('StartFromBeginningContext')
+    @adds_context('ListIntredients')
     def handle_startInstructions(self, message):
-        self.speak("Do you want to start from the beginning?", expect_response=True)
+        self.speak("Would you like to hear the ingredients?", expect_response=True)
 
-    @intent_handler(IntentBuilder('YesFromBeginningIntent').require('yesKeyword').require('StartFromBeginningContext').build())
-    @removes_context('StartFromBeginningContext')
-    def handle_start_from_beginning_intent(self, message):
-        self.speak('Okay, i start from the beginning.')        
+
+    @intent_handler(IntentBuilder('YesListIngredients').require('yesKeyword').require('ListIngredients').build())
+    @removes_context('ListIngredients')
+    @adds_context('StartFromBeginning')
+    def handle_listIngredients(self, message):
+        self.speak(self.recipe.ingredientsToString())
+        if self.recipe.started:
+            self.speak("Do you want to start the isntructions from the beginning?", expect_response=True)
+        else:
+            self.speak("Here are the instructions.")
+            self.speak(self.recipe.getNextStep())
+
+    @intent_handler(IntentBuilder('NoListIngredients').require('noKeyword').require('ListIngredients').build())
+    @removes_context('ListIngredients')
+    @adds_context('StartFromBeginning')
+    def handle_doNotListIngredients(self, message):
+        self.speak("Okay, i will just tell you the steps.")
+        if self.recipe.started:
+            self.speak("Do you want to start from the beginning?", expect_response=True)
+        else:
+            self.speak(self.recipe.getNextStep())
+
+
+    @intent_handler(IntentBuilder('YesFromBeginningIntent').require('yesKeyword').require('StartFromBeginning').build())
+    @removes_context('StartFromBeginning')
+    def handle_startFromBeginning(self, message):
+        self.speak('Okay, i start from the beginning.')
+        self.speak(self.recipe.getFirstStep(resetCounter=True))
+
+    @intent_handler(IntentBuilder('NoFromBeginningIntent').require('noKeyword').require('StartFromBeginning').build())
+    def handle_doNotStartFromBeginning(self, message):
+        self.speak('Okay, here is the next step.')
+        self.speak(self.recipe.getNextStep())       
        
     @intent_handler(IntentBuilder('nextStep').require('nextStep'))
     def handle_nextStep(self, message):
