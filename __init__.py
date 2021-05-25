@@ -1,7 +1,7 @@
 from adapt.intent import IntentBuilder
 from chatterbox.skills.core import ChatterboxSkill
 from chatterbox.skills.core import intent_handler
-from chatterbox.skills.context import adds_context, removes_context
+from mycroft.skills.context import adds_context, removes_context
 import requests
 
 
