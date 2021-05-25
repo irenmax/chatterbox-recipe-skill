@@ -42,15 +42,15 @@ class Recipe:
     def getNextStep(self):
         if self.loaded:
             self.started = True
-            if len(self.stepList) > 0 and self.stepCount < len(self.stepList):
+            if len(self.stepList) > 0:
                 if self.stepCount < len(self.stepList):   
                     step = self.stepList[self.stepCount]
                     self.stepCount = self.stepCount + 1
                     return step
                 else:
-                    return 'No more steps'
+                    return 'There are no more steps, enjoy your meal!'
             else:
-                return 'This recipe has no steps'
+                return 'This recipe has no steps.'
         else:
             return 'You havent told me yet, what you want to cook.'
         
