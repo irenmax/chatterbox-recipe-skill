@@ -18,7 +18,7 @@ class Recipe:
         self.stepList = []
         self.ingredients = []
         self.stepCount = 0
-        self.started = True
+        self.started = False
 
         # replaces spaces in string
         recipeName = recipeName.lower().replace(" ", "_")
@@ -101,12 +101,16 @@ class RecipeSkill(ChatterboxSkill):
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
         if recipeName is not None:
-            self.speak('Okay, i am searching the recipe for ' + recipeName)
-            foundRecipe = self.recipe.loadRecipe(recipeName)
-            if foundRecipe:
-                self.speak('I have found a recipe for ' + recipeName)
+            self.log.debug(recipeName)
+            if recipeName == 'it':
+                self.speak('blabla')
             else:
-                self.speak('I could not find a recipe for ' + recipeName)
+                self.speak('Okay, i am searching the recipe for ' + recipeName)
+                foundRecipe = self.recipe.loadRecipe(recipeName)
+                if foundRecipe:
+                    self.speak('I have found a recipe for ' + recipeName)
+                else:
+                    self.speak('I could not find a recipe for ' + recipeName)
         else:
             self.speak('I could not understand what recipe you want.')
             

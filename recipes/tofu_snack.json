@@ -8,12 +8,12 @@
     {
         "name": "carrots",
         "amount": 2,
-        "unit": "p"
+        "unit": "pcs"
     },
     {
         "name": "spring onions",
         "amount": 2,
-        "unit": "p"
+        "unit": "pcs"
     },
     {
         "name": "chilisauce",
