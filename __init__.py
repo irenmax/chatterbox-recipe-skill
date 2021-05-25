@@ -50,7 +50,7 @@ class Recipe:
                 else:
                     return 'There are no more steps, enjoy your meal!'
             else:
-                return 'This recipe has no steps.'
+                return 'This recipe has no steps. Just mix it all together.'
         else:
             return 'You havent told me yet, what you want to cook.'
         
