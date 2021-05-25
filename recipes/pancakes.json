@@ -1,0 +1,35 @@
+{
+  "ingredients": [
+    {
+        "name": "soymilk",
+        "amount": 500,
+        "unit": "ml"
+    },
+    {
+        "name": "flour",
+        "amount": 250,
+        "unit": "g"
+    },
+    {
+        "name": "mineral water",
+        "amount": 50,
+        "unit": "ml"
+    },
+    {
+        "name": "salt",
+        "amount": 1,
+        "unit": "pinch"
+    },
+    {
+        "name": "butter",
+        "amount": 4,
+        "unit": "tbsp"
+    }
+],
+"servings": 4,
+"method":[
+  "Mix the soymilk and flour. Then , gently stir in the mineral water.",
+  "For each pancake, heat one teaspoon of butter in a flat pan and add some dough.",
+  "Wait until you can peel off the pancake's edges from the pan and flip it. Bake the cake until it is finished and start with the next one."
+]
+}

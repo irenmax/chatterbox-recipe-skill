@@ -139,7 +139,7 @@ class RecipeSkill(ChatterboxSkill):
     @intent_handler(IntentBuilder('yesStartInstructions').require('yesKeyword').require('StartWithRecipe').build())
     @removes_context('StartWithRecipe')
     @adds_context('ListIngredients')
-    def handle_startInstructions(self, message):
+    def handle_yesStartInstructions(self, message):
         self.speak("Would you like to hear the ingredients?", expect_response=True)
 
     @intent_handler(IntentBuilder('doNotStartInstructions').require('noKeyword').require('StartWithRecipe').build())

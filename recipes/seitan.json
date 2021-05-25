@@ -1,0 +1,58 @@
+{
+  "ingredients": [
+    {
+        "name": "gluten or seitan-fix",
+        "amount": 120,
+        "unit": "g"
+    },
+    {
+        "name": "chickpea flour",
+        "amount": 20,
+        "unit": "g"
+    },
+    {
+        "name": "nutritional yeast",
+        "amount": 10,
+        "unit": "g"
+    },
+    {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp"
+    },
+    {
+        "name": "pepper",
+        "amount": 0.5,
+        "unit": "tsp"
+    },
+    {
+        "name": "garlic powder",
+        "amount": 0.5,
+        "unit": "tsp"
+    },
+    {
+        "name": "cumin",
+        "amount": 0.5,
+        "unit": "tsp"
+    },
+    {
+        "name": "water",
+        "amount": 180,
+        "unit": "ml"
+    },
+    {
+        "name": "water for cooking",
+        "amount": 1.5,
+        "unit": "l"
+    }
+],
+"servings": 4,
+"method":[
+  "Heat the water for cooking.",
+  "Mix the dry ingredients.",
+  "Mix in the water and kneat the dough for 30 seconds.",
+  "Cut the dough in 4 to 6 pieces and press them into thin piecs.",
+  "Put the seitan pieces into the water an let them cook for 30 minuts. The water should not boil.",
+  "Take out the seitan and let it cool down for at least 15 minutes."
+]
+}
