@@ -11,6 +11,7 @@ class Recipe:
         self.stepList = []
         self.ingredients = []
         self.stepCount = 0
+        self = None
 
     # loads recipe via http
     # returns True if recipe was found    
@@ -123,7 +124,7 @@ class RecipeSkill(ChatterboxSkill):
     # tells user if a recipe was found for the given dish, asks if it should read the recipe
     # if user asks for 'it' the instructions are read, assuming that user refers to previous wished dish
     @intent_handler('get.recipe.for.intent')
-    @adds_context('StartRecipe')
+    @adds_context('StartRecipeContext')
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
         if recipeName is not None:
@@ -145,23 +146,23 @@ class RecipeSkill(ChatterboxSkill):
 
     # called if user confirms to start right after recipe was loaded
     # answer 'yes' to intent before
-    @intent_handler(IntentBuilder('yesStartRecipe').require('yesKeyword').require('StartRecipe').build())
-    @removes_context('StartWithRecipe')
-    @adds_context('ListIngredients')
+    @intent_handler(IntentBuilder('yesStartRecipe').require('yesKeyword').require('StartRecipeContext').build())
+    @removes_context('StartRecipeContext')
+    @adds_context('ListIngredientsContext')
     def handle_yesStartRecipe(self, message):
         self.speak('Would you like to hear the ingredients?', expect_response=True)
 
     # called if user does not want to start right after recipe was loaded
     # answer 'no' to intent before
-    @intent_handler(IntentBuilder('noStartRecipe').require('noKeyword').require('StartRecipe').build())
-    @removes_context('StartWithRecipe')
+    @intent_handler(IntentBuilder('noStartRecipe').require('noKeyword').require('StartRecipeContext').build())
+    @removes_context('StartRecipeContext')
     def handle_noStartRecipe(self, message):
         self.speak('Okay, I am here if you want to hear the ingredients and instructions.')
 
 
     # called if user wants to hear the recipe
     @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
-    @adds_context('ListIngredients')
+    @adds_context('ListIngredientsContext')
     def handle_startInstructions(self, message):
         self.speak('Should I list the ingredients first?', expect_response=True)
 
@@ -170,9 +171,9 @@ class RecipeSkill(ChatterboxSkill):
     # answer 'yes' to intent before
     # lists all ingredients, if instructions were read before, asks if user wants to start over again
     # provides next step if instructions were not read before
-    @intent_handler(IntentBuilder('YesListIngredients').require('yesKeyword').require('ListIngredients').build())
-    @removes_context('ListIngredients')
-    @adds_context('StartFromBeginning')
+    @intent_handler(IntentBuilder('YesListIngredients').require('yesKeyword').require('ListIngredientsContext').build())
+    @removes_context('ListIngredientsContext')
+    @adds_context('StartFromBeginningContext')
     def handle_listIngredients(self, message):
         self.speak(self.recipe.ingredientsToString())
         if self.recipe.loaded and self.recipe.stepCount > 0:
@@ -185,9 +186,9 @@ class RecipeSkill(ChatterboxSkill):
     # answer 'no' to the intent before
     # if instructions were read before, asks user to start over again
     # provides the next step if instructions were not read before
-    @intent_handler(IntentBuilder('NoListIngredients').require('noKeyword').require('ListIngredients').build())
-    @removes_context('ListIngredients')
-    @adds_context('StartFromBeginning')
+    @intent_handler(IntentBuilder('NoListIngredients').require('noKeyword').require('ListIngredientsContext').build())
+    @removes_context('ListIngredientsContext')
+    @adds_context('StartFromBeginningContext')
     def handle_doNotListIngredients(self, message):
         self.speak('Okay, i will just tell you the steps.')
         if self.recipe.loaded and self.recipe.stepCount > 0:
@@ -199,8 +200,8 @@ class RecipeSkill(ChatterboxSkill):
     # called if user wants to start instructions from the beginning
     # answer 'yes' to intent before
     # provides the first step of method
-    @intent_handler(IntentBuilder('YesFromBeginningIntent').require('yesKeyword').require('StartFromBeginning').build())
-    @removes_context('StartFromBeginning')
+    @intent_handler(IntentBuilder('YesFromBeginningIntent').require('yesKeyword').require('StartFromBeginningContext').build())
+    @removes_context('StartFromBeginningContext')
     def handle_startFromBeginning(self, message):
         self.speak('Okay, i start from the beginning.')
         self.speak(self.recipe.getFirstStep(resetCounter=True))
@@ -208,8 +209,8 @@ class RecipeSkill(ChatterboxSkill):
     # user does not want to start instructions from beginning
     # answer 'no' to intent before
     # provides next step
-    @intent_handler(IntentBuilder('NoFromBeginningIntent').require('noKeyword').require('StartFromBeginning').build())
-    @removes_context('StartFromBeginning')
+    @intent_handler(IntentBuilder('NoFromBeginningIntent').require('noKeyword').require('StartFromBeginningContext').build())
+    @removes_context('StartFromBeginningContext')
     def handle_doNotStartFromBeginning(self, message):
         self.speak('Okay, here is the next step.')
         self.speak(self.recipe.getNextStep())       
