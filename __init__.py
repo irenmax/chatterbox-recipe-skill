@@ -163,6 +163,7 @@ class RecipeSkill(ChatterboxSkill):
     # called if user wants to hear the recipe
     @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
     @adds_context('ListIngredientsContext')
+    @removes_context('StartRecipeContext')
     def handle_startInstructions(self, message):
         self.speak('Should I list the ingredients first?', expect_response=True)
 
