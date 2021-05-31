@@ -1,32 +1,38 @@
 {
   "ingredients": [
     {
-        "name": "seitan",
-        "amount": 200,
-        "unit": "g"
+      "name": "seitan",
+      "amount": 200,
+      "unit": "g"
     },
     {
-        "name": "breadcrumbs",
-        "amount": 100,
-        "unit": "g"
+      "name": "breadcrumbs",
+      "amount": 100,
+      "unit": "g"
     },
     {
-        "name": "flour",
-        "amount": 200,
-        "unit": "g"
+      "name": "flour",
+      "amount": 200,
+      "unit": "g"
     },
     {
-        "name": "soymilk",
-        "amount": 200,
-        "unit": "ml"
+      "name": "soymilk",
+      "amount": 200,
+      "unit": "ml"
     },
     {
-        "name": "oil",
-        "amount": 250,
-        "unit": "ml"
+      "name": "oil",
+      "amount": 250,
+      "unit": "ml"
     }
-],
-"servings": 2,
-"method":[
-]
+  ],
+  "servings": 2,
+  "method": [
+    "Heat the water for cooking.",
+    "Mix the dry ingredients.",
+    "Mix in the water and kneat the dough for 30 seconds.",
+    "Cut the dough in 4 to 6 pieces and press them into thin piecs.",
+    "Put the seitan pieces into the water an let them cook for 30 minuts. The water should not boil.",
+    "Take out the seitan and let it cool down for at least 15 minutes."
+  ]
 }
