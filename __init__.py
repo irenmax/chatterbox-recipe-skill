@@ -130,7 +130,7 @@ class RecipeSkill(ChatterboxSkill):
         if recipeName is not None:
             self.log.debug(recipeName)
             if recipeName == 'it':
-                self.handle_startInstructions(message)
+                self.handle_yesStartRecipe(message)
             else:
                 self.speak('Okay, i am searching the recipe for {}.'.format(recipeName))
                 foundRecipe = self.recipe.loadRecipe(recipeName)
