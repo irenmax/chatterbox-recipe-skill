@@ -124,23 +124,29 @@ class RecipeSkill(ChatterboxSkill):
     # tells user if a recipe was found for the given dish, asks if it should read the recipe
     # if user asks for 'it' the instructions are read, assuming that user refers to previous wished dish
     @intent_handler('get.recipe.for.intent')
-    @adds_context('StartRecipeContext')
     def handle_getRecipe(self, message):
         recipeName = message.data.get('entities', {}).get('name')
         if recipeName is not None:
             self.log.debug(recipeName)
             if recipeName == 'it':
-                self.handle_yesStartRecipe(message)
+                self.handle_startInstructions(message)
             else:
                 self.speak('Okay, i am searching the recipe for {}.'.format(recipeName))
                 foundRecipe = self.recipe.loadRecipe(recipeName)
                 if foundRecipe:
                     self.speak('I have found a recipe for {}.'.format(recipeName))
-                    self.speak('Would you like me to read it?', expect_response=True)
+                    self.ask_startRecipe(message)
+                    #self.speak('Would you like me to read it?', expect_response=True)
                 else:
                     self.speak('I could not find a recipe for {}.'.format(recipeName))
         else:
             self.speak('I could not understand what recipe you want.')
+
+
+    @adds_context('StartRecipeContext')
+    def ask_startRecipe(self, message):
+        self.speak('Would you like me to read it?', expect_response=True)
+
             
     #### INSTRUCTIONS ####
 
@@ -163,7 +169,7 @@ class RecipeSkill(ChatterboxSkill):
     # called if user wants to hear the recipe
     @intent_handler(IntentBuilder('startInstructions').require('startInstructions'))
     @adds_context('ListIngredientsContext')
-    @removes_context('StartRecipeContext')
+    #@removes_context('StartRecipeContext')
     def handle_startInstructions(self, message):
         self.speak('Should I list the ingredients first?', expect_response=True)
 
