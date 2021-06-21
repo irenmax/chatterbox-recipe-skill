@@ -47,3 +47,9 @@ List ingredients  | _"What do I need"_ <br /> _"Tell me the ingredients"_ <br />
 Get amount of ingredient  | _"How much {ingredient} do I need"_ <br /> _"How many {ingredient}"_ <br /> ... | `get.amount.of.ingredient.intent` 
 Next step  | _"Tell me the next step"_ <br /> _"next step"_ <br /> _"next"_  |  `nextStep.voc` 
 Repeat step  | _"Say that again"_ <br /> _"Repeat step"_ | `repeatStep.voc`  
+
+## Installation and setup
+1. Fork this repository.
+2. Start a local server to let the chatterbox access your recipes. For example using `python -m SimpleHTTPServer 8989` in the directory of your recipe files.
+3. Set the right server address inn the variable `recipeUrl` in the `__init__.py` script. Commit and push the changes to your repository.  
+4. Install the skill on your chatterbox posting the command in the chatterbox chat: `/install https://github.com/[your_user_name]/chatterbox_recipe_skill` 
