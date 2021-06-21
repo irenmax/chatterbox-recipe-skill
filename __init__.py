@@ -5,6 +5,8 @@ from mycroft.skills.context import adds_context, removes_context
 import requests
 
 
+recipeUrl = 'http://192.168.0.80:8989/'
+
 class Recipe:
     def __init__(self):
         self.loaded = False
@@ -24,7 +26,7 @@ class Recipe:
         recipeName = recipeName.lower().replace(' ', '_')
     
 
-        response = requests.get('http://192.168.0.80:8989/' + recipeName + '.json')
+        response = requests.get(recipeUrl + recipeName + '.json')
         if response.status_code == 200:
             # extract ingredients
             ingredients = response.json().get('ingredients')
