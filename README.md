@@ -52,4 +52,5 @@ Repeat step  | _"Say that again"_ <br /> _"Repeat step"_ | `repeatStep.voc`
 1. Fork this repository.
 2. Start a local server to let the chatterbox access your recipes. For example using `python -m SimpleHTTPServer 8989` in the directory of your recipe files.
 3. Set the right server address inn the variable `recipeUrl` in the `__init__.py` script. Commit and push the changes to your repository.  
-4. Install the skill on your chatterbox posting the command in the chatterbox chat: `/install https://github.com/[your_user_name]/chatterbox_recipe_skill` 
+4. Install the skill on your chatterbox posting the command in the chatterbox chat: 
+`/install https://github.com/[your_user_name]/chatterbox_recipe_skill` 
