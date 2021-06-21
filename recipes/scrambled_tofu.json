@@ -1,0 +1,47 @@
+{
+  "ingredients": [
+    {
+        "name": "tofu",
+        "amount": 200,
+        "unit": "g"
+    },
+    {
+        "name": "soy yogurt",
+        "amount": 5,
+        "unit": "tbsp"
+    },
+    {
+        "name": "nutritional yeast",
+        "amount": 1,
+        "unit": "tbsp"
+    },
+    {
+        "name": "tumeric",
+        "amount": 1,
+        "unit": "tsp"
+    },
+    {
+        "name": "kala namak salt",
+        "amount": 1,
+        "unit": "pinch"
+    },
+    {
+      "name":"onion",
+      "amount": 1,
+      "unit": "piece"
+    },
+    {
+      "name": "vegetables of your choice",
+      "amount": 1,
+      "unit": "hand full"
+    }
+],
+"method":[
+  "Mix the soy yogurt, milk and nutritional yeast and add the kala namak salt.",
+  "Finely chop the onions and roast them gently in a pan.",
+  "If you want to add vegetables, cut or strip them and add it to the pan.",
+  "Crumble the tofu with your hands or a fork and add it to the rest. Stir and cook it over medium heat for 5 minutes.",
+  "Add the yorgurt mix, stir the scramble and let it cook again for some minutes.",
+  "Season the scramble with salt and pepper. If you like, top it with some chives. Bon appetite."
+]
+}
