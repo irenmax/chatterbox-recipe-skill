@@ -1,9 +1,14 @@
 # Recipe skill for chatterbox
 
 With this skill, [Chatterbox](https://hellochatterbox.com/) can read recipes to you while you are cooking. 
-Here is an example:
+Here are two examples of conversations with the Chatterbox using the recipe skill:
 
 https://user-images.githubusercontent.com/37368539/122717069-630c0d80-d26b-11eb-926e-b096abedee7b.mp4
+
+
+https://user-images.githubusercontent.com/37368539/122803256-a6e03080-d2c6-11eb-9652-40ba7ee50c7f.MP4
+
+
 
 
 ## Where do the recipes come from?
