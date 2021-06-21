@@ -54,3 +54,6 @@ Repeat step  | _"Say that again"_ <br /> _"Repeat step"_ | `repeatStep.voc`
 3. Set the right server address inn the variable `recipeUrl` in the `__init__.py` script. Commit and push the changes to your repository.  
 4. Install the skill on your chatterbox posting the command in the chatterbox chat: 
 `/install https://github.com/[your_user_name]/chatterbox_recipe_skill` 
+
+
+This project was created during the course [Free and Open Technologies](https://tiss.tuwien.ac.at/course/courseDetails.xhtml?dswid=5216&dsrid=697&courseNr=193093&semester=2021S) at TU Wien.
